@@ -1,6 +1,18 @@
 <template>
     <div>
-       <input v-model="user" placeholder="Introduce nombre de usuario de GitHub" v-on:keydown="obtenerUsuario"/>
+        <input v-model="user" placeholder="Introduce nombre de usuario de GitHub" v-show="input" v-on:keydown="obtenerUsuario"/>
+            <div class="alert alert-warning" role="alert"v-show="advertencia">
+                El usuario no existe
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="userData.html_url" class="card-link">URL de Github</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -15,7 +27,10 @@ export default {
     },
     data: function() {
         return {
-            // TODO: crear variables de datos para el funcionamiento del componente
+            input: true,    
+            advertencia: false,
+            card: false,
+            userData: ""
         }
     },
     methods: {
@@ -32,7 +47,15 @@ export default {
 
             // TODO: realizar petición fetch par obtener los datos y mostrar la información en la página
             // Ejemplo de paso de datos de autorización con fetch: https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
-
+             let url = 'https://api.github.com/users/{{user}} ';
+            fetch(url,{method:'GET'})
+            .then(response => response.json())
+            .then(data => {
+                const login = data.login;
+                const avatar = data.avatar_url;
+                const html_url = data.html_url;
+                const repos_url = data.repos_url;
+            });
         },
         obtenerRepositorios: function() {
             // TODO: Función para obtener los repositorios del usuario desde la API de GítHub
@@ -40,12 +63,22 @@ export default {
 
             // Obtener datos de autenticación de usuario para hacer peticiones
             // autenticadas a la API de GitHub
-            var userAuth = process.env.VUE_APP_USERNAME || "user";
-            var passAuth = process.env.VUE_APP_USERTOKEN || "pass";
+            var userAuth = process.env.VUE_APP_USERNAME || "Senen19";
+            var passAuth = process.env.VUE_APP_USERTOKEN || "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";
 
 
             // TODO: realizar petición fetch par obtener los datos y mostrar la información en la página
             // Ejemplo de paso de datos de autorización con fetch: https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
+
+            let url = 'https://api.github.com/users/{{user}}/repos';
+            fetch (url,{method:'GET'})
+            .then(response => response.json())
+            .then(data => {
+                const full_name = data.full_name;
+                const html_url = data.html_url;
+                const description = data.description;
+                const forks_count = data.forks_count;
+            });
 
         }
     }
