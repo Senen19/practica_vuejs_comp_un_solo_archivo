@@ -6,12 +6,14 @@
 </template>
 
 <script>
-// TODO: Importar componente GitHub
+import GitHub from './components/GitHub.vue'
+import GitHubRepos from './components/GitHubRepos.vue'
 
 export default {
     name: 'App',
     components: {
-        // TODO: Añadir componente GitHub
+        GitHub,
+        GitHubRepos
     }
 }
 </script>
