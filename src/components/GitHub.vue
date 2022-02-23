@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" placeholder="Introduce nombre de usuario de GitHub" @click="keydown"/>
+       <input v-model="user" placeholder="Introduce nombre de usuario de GitHub" v-on:keydown="obtenerUsuario"/>
     </div>
 </template>
 
@@ -27,8 +27,8 @@ export default {
 
             // Obtener datos de autenticación de usuario para hacer peticiones
             // autenticadas a la API de GitHub
-            var userAuth = process.env.VUE_APP_USERNAME || "user";
-            var passAuth = process.env.VUE_APP_USERTOKEN || "pass";
+            var userAuth = process.env.VUE_APP_USERNAME || "Senen19";
+            var passAuth = process.env.VUE_APP_USERTOKEN || "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";
 
             // TODO: realizar petición fetch par obtener los datos y mostrar la información en la página
             // Ejemplo de paso de datos de autorización con fetch: https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
